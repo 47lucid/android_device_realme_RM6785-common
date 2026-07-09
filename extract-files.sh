@@ -74,6 +74,7 @@ function blob_fixup {
             ;;
         vendor/lib/libMtkOmxVdecEx.so)
             "$PATCHELF" --replace-needed "libui.so" "libui-v32.so" "$2"
+            grep -q "libmtk_hw_shim.so" "${2}" || "${PATCHELF}" --add-needed "libmtk_hw_shim.so" "${2}"
             sed -i "s/ro.mtk_crossmount_support/ro.vendor.mtk_crossmount\x00/" "$2"
             sed -i "s/ro.mtk_deinterlace_support/ro.vendor.mtk_deinterlace\x00/" "$2"
             ;;
