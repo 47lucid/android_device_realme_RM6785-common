@@ -1,11 +1,10 @@
 # Common Device Tree for Realme RM6785 Series
 
-![LineageOS](https://img.shields.io/badge/LineageOS-141E27?style=for-the-badge&logo=LineageOS&logoColor=white)
-![Android 14](https://img.shields.io/badge/Android-14-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Android 16](https://img.shields.io/badge/Android-16-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
 
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Realme_6_White.jpg/320px-Realme_6_White.jpg" alt="Realme 6 / 7 Series" width="300">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Realme_6_White.jpg" alt="Realme 6 / 7 Series" width="300">
 </div>
 
 <br>
