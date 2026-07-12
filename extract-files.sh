@@ -78,6 +78,9 @@ function blob_fixup {
             sed -i "s/ro.mtk_crossmount_support/ro.vendor.mtk_crossmount\x00/" "$2"
             sed -i "s/ro.mtk_deinterlace_support/ro.vendor.mtk_deinterlace\x00/" "$2"
             ;;
+        system_ext/lib64/libimsma.so)
+            grep -q "libmtk_hw_shim.so" "${2}" || "${PATCHELF}" --add-needed "libmtk_hw_shim.so" "${2}"
+            ;;
         vendor/lib/libaudio_param_parser-vnd.so)
             sed -i "s/\x00audio.tuning.def_path/\x00ro.vendor.tuning_path/" "$2"
             sed -i "s/\x20audio.tuning.def_path/\x20ro.vendor.tuning_path/" "$2"
