@@ -1590,10 +1590,7 @@ vendor/etc/public.libraries.txt
 -vendor/bin/ccci_fsd
 -vendor/bin/ccci_mdinit
 -vendor/bin/ccci_rpcd
--vendor/bin/charon
--vendor/bin/epdg_wod
 -vendor/bin/gsm0710muxd
--vendor/bin/ipsec_mon
 -vendor/bin/md_monitor
 -vendor/bin/md_monitor_ctrl
 -vendor/bin/muxreport
@@ -1621,7 +1618,6 @@ vendor/etc/init/init.volte_stack.rc
 vendor/etc/init/init.volte_ua.rc
 vendor/etc/init/init.wod.rc
 vendor/etc/init/init.xcap.rc
-vendor/etc/init/ipsec_mon.rc
 vendor/etc/init/md_monitor.rc
 vendor/etc/init/mtkrild.rc
 vendor/etc/init/muxreport.rc
@@ -1632,13 +1628,11 @@ vendor/etc/init/ppl_agent.rc
 -vendor/lib/libcares_naptr.so
 -vendor/lib/libcarrierconfig.so
 -vendor/lib/libccci_util.so
--vendor/lib/libcharon-ss.so
 -vendor/lib/libcrypto-md.so
 -vendor/lib/libcrypto-ss.so
 -vendor/lib/libcurl-md.so
 -vendor/lib/libcurl-ss.so
 -vendor/lib/libhydra.so
--vendor/lib/libipsec_ims_shr.so
 -vendor/lib/libmtkares.so
 -vendor/lib/libmtkcutils.so
 -vendor/lib/libmtkhardware_legacy.so
@@ -1662,7 +1656,6 @@ vendor/etc/init/ppl_agent.rc
 -vendor/lib64/libcares_naptr.so
 -vendor/lib64/libcarrierconfig.so
 -vendor/lib64/libccci_util.so
--vendor/lib64/libcharon-ss.so
 -vendor/lib64/libcrypto-md.so
 -vendor/lib64/libcrypto-ss.so
 -vendor/lib64/libcurl-md.so
@@ -1670,7 +1663,6 @@ vendor/etc/init/ppl_agent.rc
 -vendor/lib64/libforkexecwrap.so
 -vendor/lib64/libhydra.so
 -vendor/lib64/libifcutils_mtk.so
--vendor/lib64/libipsec_ims_shr.so
 -vendor/lib64/libmtk-ril.so
 -vendor/lib64/libmtkares.so
 -vendor/lib64/libmtkconfig.so
@@ -1706,23 +1698,6 @@ vendor/etc/init/atcid.rc
 # Radio (Configs)
 vendor/etc/apdb/APDB_MT6785_S01__W2044
 vendor/etc/apdb/APDB_MT6785_S01__W2044_ENUM
-vendor/etc/ipsec/ipsec.d/cacerts/DigiCertGlobalRootCA.crt
-vendor/etc/ipsec/ipsec.d/cacerts/DigiCertGlobalRootG2.crt
-vendor/etc/ipsec/ipsec.d/cacerts/DigiCertGlobalRootG3.crt
-vendor/etc/ipsec/ipsec.d/cacerts/Entrust.net_Certification_Authority_2048.cer
-vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_PCA_G3_Root.der
-vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA.der
-vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA_G2_ECC.der
-vendor/etc/ipsec/ipsec.d/cacerts/Root-R3.cer
-vendor/etc/ipsec/ipsec.d/cacerts/Root_CA_1003.crt
-vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G4.der
-vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G5.der
-vendor/etc/ipsec/ipsec.d/cacerts/VeriSignUniversalRootCertification.der
-vendor/etc/ipsec/ipsec.d/cacerts/gold.cer
-vendor/etc/ipsec/ipsec.d/cacerts/thawte.der
-vendor/etc/ipsec/ssl/openssl.cnf
-vendor/etc/ipsec/ipsec.conf
-vendor/etc/ipsec/strongswan.conf
 vendor/etc/ecc_list.xml
 vendor/etc/ecc_list_OP01.xml
 vendor/etc/ecc_list_OP02.xml
@@ -1925,11 +1900,9 @@ odm/firmware/fastchg/20682/oplus_vooc_fw.bin
 
 # Wifi
 -vendor/bin/stp_dump3
--vendor/bin/wfca
 -vendor/bin/wlan_assistant
 -vendor/bin/wmt_launcher
 -vendor/bin/wmt_loader
-vendor/etc/init/init.wfca.rc
 vendor/etc/init/init.wlan_drv.rc
 vendor/etc/init/init.wmt_drv.rc
 vendor/etc/init/wlan_assistant.rc
