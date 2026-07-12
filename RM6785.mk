@@ -268,6 +268,10 @@ PRODUCT_BOOT_JARS += \
     mediatek-telephony-base \
     mediatek-telephony-common \
 
+PRODUCT_PACKAGES += \
+    ImsServiceEntitlement \
+    Iwlan
+
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal-service.mediatek
