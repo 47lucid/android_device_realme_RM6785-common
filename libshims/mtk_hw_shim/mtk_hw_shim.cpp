@@ -18,7 +18,7 @@ extern "C" {
             int* outBytesPerPixel, 
             int* outBytesPerStride) {
         
-        static void* libui = dlopen("libui.so", RTLD_NOW);
+        static void* libui = []() { void* h = dlopen("libui-v32.so", RTLD_NOW); return h ? h : dlopen("libui.so", RTLD_NOW); }();
         // Modern 4-argument lock: GraphicBufferMapper::lock(native_handle const*, unsigned int, Rect const&, void**)
         static void* sym = dlsym(libui, "_ZN7android19GraphicBufferMapper4lockEPK13native_handlejRKNS_4RectEPPv");
         
@@ -41,7 +41,7 @@ extern "C" {
             void* mapper_this,
             const android::native_handle* handle) {
         
-        static void* libui = dlopen("libui.so", RTLD_NOW);
+        static void* libui = []() { void* h = dlopen("libui-v32.so", RTLD_NOW); return h ? h : dlopen("libui.so", RTLD_NOW); }();
         // Modern 2-argument unlock: GraphicBufferMapper::unlock(native_handle const*, unique_fd*)
         static void* sym = dlsym(libui, "_ZN7android19GraphicBufferMapper6unlockEPK13native_handlePNS_4base14unique_fd_implINS4_13DefaultCloserEEE");
         
