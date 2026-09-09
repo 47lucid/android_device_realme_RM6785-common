@@ -20,7 +20,7 @@ extern "C" {
         
         static void* libui = []() { void* h = dlopen("libui-v32.so", RTLD_NOW); return h ? h : dlopen("libui.so", RTLD_NOW); }();
         // Modern 4-argument lock: GraphicBufferMapper::lock(native_handle const*, unsigned int, Rect const&, void**)
-        static void* sym = dlsym(libui, "_ZN7android19GraphicBufferMapper4lockEPK13native_handlejRKNS_4RectEPPv");
+        static void* sym = libui ? dlsym(libui, "_ZN7android19GraphicBufferMapper4lockEPK13native_handlejRKNS_4RectEPPv") : nullptr;
         
         int err = -1; // Fallback to error if symbol not found
         if (sym) {
@@ -43,7 +43,7 @@ extern "C" {
         
         static void* libui = []() { void* h = dlopen("libui-v32.so", RTLD_NOW); return h ? h : dlopen("libui.so", RTLD_NOW); }();
         // Modern 2-argument unlock: GraphicBufferMapper::unlock(native_handle const*, unique_fd*)
-        static void* sym = dlsym(libui, "_ZN7android19GraphicBufferMapper6unlockEPK13native_handlePNS_4base14unique_fd_implINS4_13DefaultCloserEEE");
+        static void* sym = libui ? dlsym(libui, "_ZN7android19GraphicBufferMapper6unlockEPK13native_handlePNS_4base14unique_fd_implINS4_13DefaultCloserEEE") : nullptr;
         
         if (sym) {
             typedef int (*UnlockFunc)(void*, const android::native_handle*, void*);
