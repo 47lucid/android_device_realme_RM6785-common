@@ -44,6 +44,8 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    'product/etc/permissions/com.android.hotwordenrollment.common.util.xml': blob_fixup()
+        .regex_replace('my_product', 'product'),
     'system_ext/lib64/libsource.so': blob_fixup()
         .add_needed('libui_shim.so'),
     ('vendor/lib/libnvram.so',
@@ -60,8 +62,12 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libshim_utils.so'),
    ('vendor/lib64/libutils-v30.so', 'vendor/lib64/hw/hwcomposer.mt6785.so'): blob_fixup()
         .add_needed('libprocessgroup_shim.so'),
+    'vendor/etc/init/android.hardware.bluetooth@1.0-service-mediatek.rc': blob_fixup()
+        .regex_replace(r'(.*vts[\s\S]*)', ''),
     'vendor/lib/hw/audio.primary.mt6785.so': blob_fixup()
         .add_needed('libshim_audio.so')
+        .replace_needed('libalsautils.so', 'libalsautils-v30.so'),
+    'vendor/lib/hw/audio.usb.mt6785.so': blob_fixup()
         .replace_needed('libalsautils.so', 'libalsautils-v30.so'),
     'vendor/lib/libmnl.so': blob_fixup()
         .add_needed('libcutils.so'),
