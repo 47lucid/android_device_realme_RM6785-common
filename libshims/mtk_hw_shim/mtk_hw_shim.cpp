@@ -1,5 +1,6 @@
 #include <dlfcn.h>
 #include <stdint.h>
+#include <unistd.h>
 
 namespace android {
     struct Rect { int32_t left, top, right, bottom; };
@@ -18,19 +19,20 @@ extern "C" {
             int* outBytesPerPixel, 
             int* outBytesPerStride) {
         
+        if (outBytesPerPixel || outBytesPerStride) {
+            return -22; // -EINVAL: We cannot safely provide these outputs using the modern lock API.
+        }
+
         static void* libui = []() { void* h = dlopen("libui-v32.so", RTLD_NOW); return h ? h : dlopen("libui.so", RTLD_NOW); }();
-        // Modern 4-argument lock: GraphicBufferMapper::lock(native_handle const*, unsigned int, Rect const&, void**)
-        static void* sym = libui ? dlsym(libui, "_ZN7android19GraphicBufferMapper4lockEPK13native_handlejRKNS_4RectEPPv") : nullptr;
+        // Modern 4-argument lock: GraphicBufferMapper::lock(native_handle const*, uint64_t, Rect const&, void**)
+        static void* sym = libui ? dlsym(libui, "_ZN7android19GraphicBufferMapper4lockEPK13native_handleyRKNS_4RectEPPv") : nullptr;
         
         int err = -1; // Fallback to error if symbol not found
         if (sym) {
-            typedef int (*LockFunc)(void*, const android::native_handle*, unsigned int, const android::Rect&, void**);
+            typedef int (*LockFunc)(void*, const android::native_handle*, uint64_t, const android::Rect&, void**);
             LockFunc lock_func = (LockFunc)sym;
-            err = lock_func(mapper_this, handle, usage, bounds, vaddr);
+            err = lock_func(mapper_this, handle, (uint64_t)usage, bounds, vaddr);
         }
-        
-        if (outBytesPerPixel) *outBytesPerPixel = 0;
-        if (outBytesPerStride) *outBytesPerStride = 0;
         
         return err;
     }
@@ -46,9 +48,14 @@ extern "C" {
         static void* sym = libui ? dlsym(libui, "_ZN7android19GraphicBufferMapper6unlockEPK13native_handlePNS_4base14unique_fd_implINS4_13DefaultCloserEEE") : nullptr;
         
         if (sym) {
-            typedef int (*UnlockFunc)(void*, const android::native_handle*, void*);
+            typedef int (*UnlockFunc)(void*, const android::native_handle*, int*);
             UnlockFunc unlock_func = (UnlockFunc)sym;
-            return unlock_func(mapper_this, handle, nullptr);
+            int fenceFd = -1;
+            int err = unlock_func(mapper_this, handle, &fenceFd);
+            if (fenceFd >= 0) {
+                close(fenceFd);
+            }
+            return err;
         }
         
         return -1;
