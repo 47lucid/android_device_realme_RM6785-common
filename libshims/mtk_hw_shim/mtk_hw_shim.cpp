@@ -1,7 +1,7 @@
 #include <dlfcn.h>
 #include <stdint.h>
 #include <unistd.h>
-
+#include <poll.h>
 namespace android {
     struct Rect { int32_t left, top, right, bottom; };
     struct native_handle;
@@ -53,6 +53,12 @@ extern "C" {
             int fenceFd = -1;
             int err = unlock_func(mapper_this, handle, &fenceFd);
             if (fenceFd >= 0) {
+                struct pollfd pfd = {
+                    .fd = fenceFd,
+                    .events = POLLIN,
+                    .revents = 0
+                };
+                poll(&pfd, 1, -1);
                 close(fenceFd);
             }
             return err;
